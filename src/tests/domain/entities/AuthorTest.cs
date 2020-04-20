@@ -17,18 +17,19 @@ namespace tests.domain.entities
         }
 
         [TestMethod]
-        public void GetFormatedName_GivenFullNameWithSpecialSecondLast_ReturnsSecondLastAndLastTogether()
-        {
-            var author = new Author("Joao Silva Neto");
-            author.FormatedName.Should().Be("SILVA NETO, Joao");
-        }
-
-        [TestMethod]
         public void GetFormatedName_GivenASimpleFullName_ReturnsLastNameUppercasedInFront()
         {
             var author = new Author("Ricardo Verdade Silva");
             author.FormatedName.Should().Be("SILVA, Ricardo Verdade");
         }
+
+        [TestMethod]
+        public void GetFormatedName_GivenFullNameWithSpecialSecondLast_ReturnsSecondLastAndLastTogether()
+        {
+            var author = new Author("Ricardo Verdade Silva Neto");
+            author.FormatedName.Should().Be("SILVA NETO, Ricardo Verdade");
+        }
+
 
         [TestMethod]
         public void GetFormatedName_GivenFullNameInLowerCase_ReturnsFirstLetterUppercased()
@@ -52,19 +53,19 @@ namespace tests.domain.entities
         }
 
         [TestMethod]
-        public void GetSpecialSecondLastNames_WithoutProvideAnyInConstructor_ReturnsDefaultList()
+        public void GetSpecialLastnames_WithoutProvideAnyInConstructor_ReturnsDefaultList()
         {
             var author = new Author("foo");
-            author.SpecialSecondLastNames.Should().BeEquivalentTo(new string[] {
+            author.SpecialLastnames.Should().BeEquivalentTo(new string[] {
                 "FILHO", "FILHA", "NETO", "NETA", "SOBRINHO", "SOBRINHA", "JUNIOR"
             });
         }
 
         [TestMethod]
-        public void GetSpecialSecondLastNames_ProvidingNamesInConstructor_ReturnsProvidenNames()
+        public void GetSpecialLastnames_ProvidingNamesInConstructor_ReturnsProvidenNames()
         {
             var author = new Author("foo", new string[] { "FOO", "GEEZ" });
-            author.SpecialSecondLastNames.Should().BeEquivalentTo(new string[] {
+            author.SpecialLastnames.Should().BeEquivalentTo(new string[] {
                 "FOO", "GEEZ"
             });
         }
