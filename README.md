@@ -1,29 +1,75 @@
-# Obras Bibliográficas
+# Referências Bibliográficas
 
-(LEIA ATÉ O FINAL)
+Simples script para formatação de nome de autores para padrão ABNT. Para mais informações sobre o desafio, veja o arquivo [Challenge](CHALLENGE.md)
 
-Quando se lista o nome de autores de livros, artigos e outras publicações é comum que se apresente o nome do autor ou dos autores da seguinte forma: sobrenome do autor em letras maiúsculas, seguido de uma vírgula e da primeira parte do nome apenas com as iniciais maiúsculas.
+## Como rodar
 
-Por exemplo:
-* SILVA, Joao
-* COELHO, Paulo
-* ARAUJO, Celso de
+É simples de rodar com Docker, e é recomendado. Se você não tem o docker instalado, por favor, veja a [documentação do Docker](https://docs.docker.com/compose/install/).
 
-Seu desafio é fazer um programa que leia um número inteiro correspondendo ao número de nomes que será fornecido, e, a seguir, leia estes nomes (que podem estar em qualquer tipo de letra) e imprima a versão formatada no estilo exemplificado acima.
+### Com docker
 
-As seguintes regras devem ser seguidas nesta formatação:
-* o sobrenome será igual a última parte do nome e deve ser apresentado em letras maiúsculas;
-* se houver apenas uma parte no nome, ela deve ser apresentada em letras maiúsculas (sem vírgula): se a entrada for “ Guimaraes” , a saída deve ser “ GUIMARAES”;
-* se a última parte do nome for igual a "FILHO", "FILHA", "NETO", "NETA", "SOBRINHO", "SOBRINHA" ou "JUNIOR" e houver duas ou mais partes antes, a penúltima parte fará parte do sobrenome. Assim: se a entrada for "Joao Silva Neto", a saída deve ser "SILVA NETO, Joao" ; se a entrada for "Joao Neto" , a saída deve ser "NETO, Joao";
-* as partes do nome que não fazem parte do sobrenome devem ser impressas com a inicial maiúscula e com as demais letras minúsculas;
-* "da", "de", "do", "das", "dos" não fazem parte do sobrenome e não iniciam por letra maiúscula.
+Clone este repositório, navegue até a pasta dele e execute o comando abaixo para criar a imagem:
 
-## Testes por tecnologia
-* [.NET](https://github.com/guideti/obras-bibliograficas/blob/master/TESTE_DOTNET.md)
-* [Ruby](https://github.com/guideti/obras-bibliograficas/blob/master/TESTE_RUBY.md)
-* [Angular](https://github.com/guideti/obras-bibliograficas/blob/master/TESTE_ANGULAR.md)
+```shell
+$ docker-build . -t obras-bibliograficas
+```
 
-## Procedimento para entrega
-Realize um fork deste repositório, desenvolva sua solução e encaminhe o seu repositório com o seu código. Arquivos compactados não serão aceitos.
+Então basta chamar a imagem passando os seguintes parametros:
 
-Altere o arquivo README para descrever quais componentes foram utilizados e como sua aplicação deverá ser executada.
+- Número representando a quantidade de nomes que serão fornecidos
+- Nomes dos autores
+
+Exemplo de uso:
+
+```shell
+$ docker run obras-bibliograficas 3 "Ricardo da Verdade Silva" "ricardo da verdade silva neto" "guimaraes"
+```
+
+A saída do programa será:
+
+```shell
+SILVA, Ricardo da Verdade
+SILVA NETO, Ricardo da Verdade
+GUIMARAES
+```
+
+### Sem docker
+
+A única dependência para este projeto é o [.NET Core v3.0](https://dotnet.microsoft.com/download)
+
+Após instalar o .NET e o Node, faça o download deste repositório e navegue até a pasta _src_ (substitua ~/git pelo seu caminho de download):
+
+```shell
+$ cd ~/git/obras-bibliograficas/src
+```
+
+Faça o download de todos os pacotes utilizados neste projeto:
+
+```shell
+$ dotnet restore
+```
+
+(OPCIONAL) Rode todos os testes para ter certeza que você não baixou uma versão instável:
+
+```shell
+$ dotnet test
+```
+
+Então basta rodar o programa os seguintes parametros:
+
+- Número representando a quantidade de nomes que serão fornecidos
+- Nomes dos autores
+
+Exemplo de uso:
+
+```shell
+$ dotnet run 3 "Ricardo da Verdade Silva" "ricardo da verdade silva neto" "guimaraes"
+```
+
+A saída do programa será:
+
+```shell
+SILVA, Ricardo da Verdade
+SILVA NETO, Ricardo da Verdade
+GUIMARAES
+```
